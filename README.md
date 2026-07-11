@@ -34,3 +34,6 @@ AI-Lab-Record-Generator/
 1. Clone the repository:
    ```bash
    git clone https://github.com/ranjithbrs/AI-Lab-Record-Generator.git
+## 🌐 Live Demo
+View the project live here: [AI Lab Record Generator](https://ranjithbrs.github.io/AI-Lab-Record-Generator/)
+
