@@ -1,10 +1,13 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import requests
 import os
 import sys
 
-app = Flask(__name__)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PUBLIC_DIR = os.path.join(BASE_DIR, 'public')
+
+app = Flask(__name__, static_folder=PUBLIC_DIR, static_url_path='')
 CORS(app)  # Enable Cross-Origin Resource Sharing
 
 # Hugging Face setup — token read from environment variable for security
@@ -286,6 +289,20 @@ def generate_record():
         result_data = generate_fallback_record(subject, experiment)
         
     return jsonify(result_data)
+
+@app.route('/')
+def home():
+    if os.path.exists(os.path.join(PUBLIC_DIR, 'index.html')):
+        return send_from_directory(PUBLIC_DIR, 'index.html')
+    return send_from_directory(PUBLIC_DIR, 'login.html')
+
+@app.route('/<path:path>')
+def serve_static(path):
+    if os.path.exists(os.path.join(PUBLIC_DIR, path)):
+        return send_from_directory(PUBLIC_DIR, path)
+    if os.path.exists(os.path.join(PUBLIC_DIR, 'index.html')):
+        return send_from_directory(PUBLIC_DIR, 'index.html')
+    return send_from_directory(PUBLIC_DIR, 'login.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

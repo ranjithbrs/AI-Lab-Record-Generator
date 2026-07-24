@@ -1,11 +1,12 @@
 {
+  "version": 2,
   "rewrites": [
     {
       "source": "/generate",
       "destination": "/api/index"
     },
     {
-      "source": "/api/(.*)",
+      "source": "/(.*)",
       "destination": "/api/index"
     }
   ]
