@@ -1,8 +1,12 @@
 {
-  "rewrites": [
+  "routes": [
     {
-      "source": "/generate",
-      "destination": "/api/index"
+      "src": "/generate",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/",
+      "dest": "/index.html"
     }
   ]
 }
