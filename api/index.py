@@ -228,9 +228,7 @@ def generate_fallback_record(subject, experiment):
             "Result": result
         }
 
-@app.route('/')
-def home():
-    return "Flask API server is running. Use /generate with POST requests."
+# Route for generation endpoint
 
 @app.route('/generate', methods=['POST'])
 def generate_record():
