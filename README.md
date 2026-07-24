@@ -1,4 +1,3 @@
-# AI-Lab-Record-Generator
 # AI Lab Record Generator
 
 A mini project to automate lab record creation for students in **Computer Science** and **Science subjects (Physics, Chemistry, Biology)**.
