@@ -1,4 +1,9 @@
-// Show a transient notification toast
+// Auto-detect backend URL — relative on Vercel, localhost for local dev
+const BACKEND_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
+  ? "http://127.0.0.1:5000"
+  : "";  // On Vercel, same origin — use relative path
+
+
 function showToast(message) {
     let toast = document.getElementById("toast");
     if (!toast) {
@@ -114,7 +119,7 @@ async function loadResultPage() {
     document.getElementById("display-experiment").innerText = experiment;
     
     try {
-        const response = await fetch("http://127.0.0.1:5000/generate", {
+        const response = await fetch(`${BACKEND_URL}/generate`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

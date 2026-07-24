@@ -234,7 +234,7 @@ def generate_fallback_record(subject, experiment):
 
 @app.route('/')
 def home():
-    return "✅ Flask server is running! Use /generate with POST requests."
+    return "âœ… Flask server is running! Use /generate with POST requests."
 
 @app.route('/generate', methods=['POST'])
 def generate_record():
