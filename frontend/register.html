@@ -1,30 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Register</title>
-   <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - AI Lab Record Generator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-   <h2>Create Account</h2>
+    <div class="card-container">
+        <h2>Create Account</h2>
+        <h3 style="display: block; text-align: center; border-bottom: none; margin-bottom: 20px; font-weight: 500;">Enter your details</h3>
 
-   <form onsubmit="submitForm(); return false;">
-      <label for="Name">Name:</label>
-      <input type="text" id="Name" name="Name" placeholder="Enter Name" required><br><br>
+        <form onsubmit="registerUser(); return false;">
+            <div class="form-group">
+                <label for="Name">Full Name</label>
+                <input type="text" id="Name" name="Name" placeholder="Enter Name" required>
+            </div>
 
-      <label for="MailId">Mail Id:</label>
-      <input type="email" id="MailId" name="MailId" placeholder="Enter Mail Id" required><br><br>
+            <div class="form-group">
+                <label for="MailId">Email Address</label>
+                <input type="email" id="MailId" name="MailId" placeholder="Enter Email Address" required>
+            </div>
 
-      <label for="Password">Password:</label>
-      <input type="password" id="Password" name="Password" placeholder="Enter Password" required><br><br>
+            <div class="form-group">
+                <label for="Password">Password</label>
+                <input type="password" id="Password" name="Password" placeholder="Enter Password" required>
+            </div>
 
-      <button type="submit">Submit</button>
-   </form>
+            <button type="submit">Submit Details</button>
+        </form>
 
-   <br>
-   <p>Already have an account? <a href="login.html">Login</a></p>
+        <p class="footer-text">Already have an account? <a href="login.html">Sign In</a></p>
+    </div>
 
-   <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

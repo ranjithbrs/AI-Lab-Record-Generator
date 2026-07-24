@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Login Page</title>
-   <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - AI Lab Record Generator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-   <h2>AI Lab Record Generator</h2>
-   <h3>Login</h3>
+    <div class="card-container">
+        <h2>AI Lab Record Generator</h2>
+        <h3 style="display: block; text-align: center; border-bottom: none; margin-bottom: 20px; font-weight: 500;">Account Login</h3>
 
-   <form onsubmit="login(); return false;">
-      <label for="Username">Username:</label>
-      <input type="text" id="Username" name="Username" placeholder="Enter Username" required><br><br>
+        <form onsubmit="login(); return false;">
+            <div class="form-group">
+                <label for="Username">Username</label>
+                <input type="text" id="Username" name="Username" placeholder="Enter Username" required>
+            </div>
+            <div class="form-group">
+                <label for="Password">Password</label>
+                <input type="password" id="Password" name="Password" placeholder="Enter Password" required>
+            </div>
 
-      <label for="Password">Password:</label>
-      <input type="password" id="Password" name="Password" placeholder="Enter Password" required><br><br>
+            <button type="submit">Login</button>
+        </form>
 
-      <button type="submit">Login</button>
-   </form>
+        <p class="footer-text">New User? <a href="register.html">Create an Account</a></p>
+    </div>
 
-   <br>
-   <p>New User? <a href="register.html">Register</a></p>
-
-   <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
