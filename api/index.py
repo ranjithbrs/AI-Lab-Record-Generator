@@ -1,13 +1,9 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
 import os
-import sys
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PUBLIC_DIR = os.path.join(BASE_DIR, 'public')
-
-app = Flask(__name__, static_folder=PUBLIC_DIR, static_url_path='')
+app = Flask(__name__)
 CORS(app)  # Enable Cross-Origin Resource Sharing
 
 # Hugging Face setup — token read from environment variable for security
@@ -231,8 +227,6 @@ def generate_fallback_record(subject, experiment):
             "Result": result
         }
 
-# Route for generation endpoint
-
 @app.route('/generate', methods=['POST'])
 def generate_record():
     data = request.json or {}
@@ -240,7 +234,6 @@ def generate_record():
     experiment = data.get("Experiment")
     user = data.get("Username", "Student")
 
-    # If Hugging Face is set up with a real token, try it
     use_huggingface = False
     if "YOUR_TOKEN" not in HEADERS.get("Authorization", "") and HEADERS.get("Authorization", "") != "Bearer ":
         use_huggingface = True
@@ -254,7 +247,6 @@ def generate_record():
             response = requests.post(API_URL, headers=HEADERS, json=payload, timeout=8)
             if response.status_code == 200:
                 result = response.json()
-                print("[DEBUG] Hugging Face raw response:", result)
                 generated_text = ""
                 if isinstance(result, list) and len(result) > 0 and "generated_text" in result[0]:
                     generated_text = result[0]["generated_text"]
@@ -283,26 +275,11 @@ def generate_record():
         except Exception as e:
             print(f"[WARN] Hugging Face API error: {e}. Falling back to templates.")
             
-    # Fallback to local template generator if HF is not configured, or if the API call failed/timed out
     if not result_data:
         print("[INFO] Using high-quality local template generation...")
         result_data = generate_fallback_record(subject, experiment)
         
     return jsonify(result_data)
-
-@app.route('/')
-def home():
-    if os.path.exists(os.path.join(PUBLIC_DIR, 'index.html')):
-        return send_from_directory(PUBLIC_DIR, 'index.html')
-    return send_from_directory(PUBLIC_DIR, 'login.html')
-
-@app.route('/<path:path>')
-def serve_static(path):
-    if os.path.exists(os.path.join(PUBLIC_DIR, path)):
-        return send_from_directory(PUBLIC_DIR, path)
-    if os.path.exists(os.path.join(PUBLIC_DIR, 'index.html')):
-        return send_from_directory(PUBLIC_DIR, 'index.html')
-    return send_from_directory(PUBLIC_DIR, 'login.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
