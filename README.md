@@ -1,38 +1,77 @@
 # AI Lab Record Generator
 
-A mini project to automate lab record creation for students in **Computer Science** and **Science subjects (Physics, Chemistry, Biology)**.
+An intelligent web application to automate lab record creation for students in **Computer Science** and **Science subjects (Physics, Chemistry, Biology)**.
+
+## 🌐 Live Demo
+Experience the project live on Vercel: **[AI Lab Record Generator](https://ai-lab-record-generator-two.vercel.app)**
+
+---
 
 ## 🚀 Features
-- **Login & Register pages** for user access
-- **Form page** to enter subject and experiment details
-- **Result page** with dynamic sections:
-  - Science labs → Aim, Theory, Procedure, Conclusion
-  - CS labs → Aim, Algorithm, Program, Output, Result
-- **Copy & Download buttons** to save lab records
-- **Navigation links** to Home and Form
-- **Responsive design** with CSS styling
+- **Modern Glassmorphism UI** with dark mode aesthetics and smooth micro-animations
+- **User Access & Auth Flow** (Login & Register pages with persistent local session)
+- **Smart Experiment Generator**:
+  - **CS / Programming Labs** → Aim, Algorithm, Code / Program, Output, Result
+  - **General Science Labs** → Aim, Theory, Procedure, Observation, Result
+- **Instant Save Tools**: One-click **Copy to Clipboard** and **Download .txt Record**
+- **Robust Fallback Engine**: Works seamlessly online and offline via rule-based AI template fallback
+
+---
 
 ## 🛠️ Tech Stack
-- HTML
-- CSS
-- JavaScript
+- **Frontend**: HTML5, Modern CSS3 (Glassmorphism), JavaScript (ES6+)
+- **Backend**: Python 3.14, Flask, Flask-CORS, Requests
+- **Deployment**: Vercel Serverless Functions
+
+---
 
 ## 📂 Project Structure
+```text
 AI-Lab-Record-Generator/
-├── index.html      # Login page
-├── register.html   # Register page
-├── form.html       # Form page
-├── result.html     # Result page
-├── style.css       # Styling
-├── script.js       # Logic for Result page
-├── .gitignore      # Ignore system/IDE files
-├── LICENSE         # MIT License
-└── README.md       # Project info
+├── api/
+│   └── index.py         # Vercel Serverless Function entry point
+├── backend/
+│   └── app.py           # Local Flask server
+├── public/              # Static Frontend Assets
+│   ├── index.html       # Login Page (Root)
+│   ├── login.html       # Login Page
+│   ├── register.html    # Register Page
+│   ├── form.html        # Experiment Details Form
+│   ├── result.html      # Dynamic Record Display Page
+│   ├── script.js        # Frontend Logic & API Integration
+│   └── style.css        # Glassmorphic Stylesheet
+├── requirements.txt     # Python Dependencies
+├── vercel.json          # Vercel Serverless & Static Rewrite Config
+└── README.md            # Documentation
+```
 
-## ⚡ How to Run
-1. Clone the repository:
+---
+
+## ⚡ How to Run Locally
+
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/ranjithbrs/AI-Lab-Record-Generator.git
-## 🌐 Live Demo
-View the project live here: [AI Lab Record Generator](https://ranjithbrs.github.io/AI-Lab-Record-Generator/)
+   cd AI-Lab-Record-Generator
+   ```
 
+2. **Set up virtual environment & install dependencies:**
+   ```bash
+   python -m venv .venv
+   .venv\Scripts\activate      # On Windows
+   # source .venv/bin/activate # On Linux/macOS
+   pip install -r requirements.txt
+   ```
+
+3. **Start the Flask Backend:**
+   ```bash
+   python backend/app.py
+   ```
+
+4. **Open Frontend:**
+   Open `public/login.html` or `public/index.html` in any web browser!
+
+---
+
+## 📄 License
+This project is licensed under the [MIT License](LICENSE).
