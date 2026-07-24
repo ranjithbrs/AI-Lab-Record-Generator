@@ -1,12 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
-import sys
-import io
 import os
-
-# Force UTF-8 stdout so emojis/special chars don't crash on Windows cp1252
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+import sys
 
 app = Flask(__name__)
 CORS(app)  # Enable Cross-Origin Resource Sharing
@@ -234,7 +230,7 @@ def generate_fallback_record(subject, experiment):
 
 @app.route('/')
 def home():
-    return "âœ… Flask server is running! Use /generate with POST requests."
+    return "Flask API server is running. Use /generate with POST requests."
 
 @app.route('/generate', methods=['POST'])
 def generate_record():
