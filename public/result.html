@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Record - AI Lab Record Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card-container wide-card">
+        <h2>🧪 Lab Record</h2>
+
+        <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 8px; margin-bottom: 20px;">
+            <span style="color: #94a3b8; font-size: 0.9rem;">📚 Subject: <strong id="display-subject" style="color: #a5b4fc;">—</strong></span>
+            <span style="color: #94a3b8; font-size: 0.9rem;">🔬 Experiment: <strong id="display-experiment" style="color: #a5b4fc;">—</strong></span>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loading-container" class="spinner-container">
+            <div class="spinner"></div>
+            <p style="color: #94a3b8;">Generating your lab record...</p>
+        </div>
+
+        <!-- Error Container -->
+        <div id="error-container" style="display: none; text-align: center; padding: 30px;">
+            <p style="font-size: 2rem;">⚠️</p>
+            <p style="color: #f87171; font-weight: 600; margin-top: 10px;">Failed to generate lab record</p>
+            <p id="error-message" style="color: #94a3b8; font-size: 0.9rem; margin-top: 8px;">Make sure Flask server is running at http://127.0.0.1:5000</p>
+            <div class="btn-group" style="margin-top: 20px;">
+                <a href="form.html" class="btn btn-secondary">← Try Again</a>
+            </div>
+        </div>
+
+        <!-- Generated Record -->
+        <div id="record-content" style="display: none;">
+            <div class="lab-record-container">
+                <!-- Common: Aim -->
+                <div class="lab-section">
+                    <h4>🎯 Aim</h4>
+                    <p id="val-aim">...</p>
+                </div>
+
+                <!-- CS Layout -->
+                <div id="cs-layout" style="display:none;">
+                    <div class="lab-section">
+                        <h4>⚙️ Algorithm</h4>
+                        <p id="val-algorithm" style="white-space: pre-line;">...</p>
+                    </div>
+                    <div class="lab-section">
+                        <h4>💻 Program / Code</h4>
+                        <pre id="val-code">...</pre>
+                    </div>
+                    <div class="lab-section">
+                        <h4>📊 Expected Output</h4>
+                        <pre id="val-output">...</pre>
+                    </div>
+                </div>
+
+                <!-- Science Layout -->
+                <div id="science-layout" style="display:none;">
+                    <div class="lab-section">
+                        <h4>📖 Theory</h4>
+                        <p id="val-theory" style="white-space: pre-line;">...</p>
+                    </div>
+                    <div class="lab-section">
+                        <h4>🔬 Procedure</h4>
+                        <p id="val-procedure" style="white-space: pre-line;">...</p>
+                    </div>
+                    <div class="lab-section">
+                        <h4>📝 Observation</h4>
+                        <p id="val-observation" style="white-space: pre-line;">...</p>
+                    </div>
+                </div>
+
+                <!-- Common: Result -->
+                <div class="lab-section">
+                    <h4>✅ Result</h4>
+                    <p id="val-result">...</p>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="btn-group">
+                <button onclick="copyToClipboard()" class="btn btn-secondary">📋 Copy to Clipboard</button>
+                <button onclick="downloadRecord()" class="btn btn-success">⬇️ Download .txt</button>
+                <a href="form.html" class="btn btn-secondary">🔄 Generate Another</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

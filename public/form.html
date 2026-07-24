@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator - AI Lab Record Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card-container">
+        <h2>Welcome, <span id="welcome-user">[Username]</span></h2>
+        <h3 style="display: block; text-align: center; border-bottom: none; margin-bottom: 25px; font-weight: 500;">Enter Experiment Details</h3>
+
+        <form onsubmit="submitExperimentForm(); return false;">
+            <div class="form-group">
+                <label for="Subject">Select Subject</label>
+                <select id="Subject" name="Subject" required>
+                    <option value="" disabled selected>Choose a Subject...</option>
+                    <option value="Computer Science">Computer Science / Programming</option>
+                    <option value="Physics">Physics Lab</option>
+                    <option value="Chemistry">Chemistry Lab</option>
+                    <option value="Biology">Biology Lab</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="Experiment">Experiment Title</label>
+                <input type="text" id="Experiment" name="Experiment" placeholder="e.g., Binary Search or Ohm's Law" required>
+            </div>
+
+            <button type="submit">Generate Lab Record</button>
+        </form>
+
+        <div style="margin-top: 25px; display: flex; justify-content: center;">
+            <button onclick="logout();" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;">Logout</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app)  # Enable Cross-Origin Resource Sharing
 
 # Hugging Face setup — token read from environment variable for security
-HF_TOKEN = os.environ.get("HF_TOKEN", "hf_YOUR_TOKEN_HERE")
+HF_TOKEN = os.environ.get("HF_TOKEN", "")
 API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-base"
 HEADERS = {"Authorization": f"Bearer {HF_TOKEN}"}
 
