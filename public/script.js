@@ -1,7 +1,7 @@
-// Auto-detect backend URL — relative on Vercel, localhost for local dev
-const BACKEND_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
+// Auto-detect backend URL — Vercel/GitHub Pages or localhost
+const BACKEND_URL = (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost")
   ? "http://127.0.0.1:5000"
-  : "";  // On Vercel, same origin — use relative path
+  : "https://ai-lab-record-generator-two.vercel.app";
 
 
 function showToast(message) {

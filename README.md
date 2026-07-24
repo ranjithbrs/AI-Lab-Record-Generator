@@ -2,8 +2,9 @@
 
 An intelligent web application to automate lab record creation for students in **Computer Science** and **Science subjects (Physics, Chemistry, Biology)**.
 
-## 🌐 Live Demo
-Experience the project live on Vercel: **[AI Lab Record Generator](https://ai-lab-record-generator-two.vercel.app)**
+## 🌐 Live Demos
+- **GitHub Pages**: **[ranjithbrs.github.io/AI-Lab-Record-Generator](https://ranjithbrs.github.io/AI-Lab-Record-Generator/)**
+- **Vercel**: **[ai-lab-record-generator-two.vercel.app](https://ai-lab-record-generator-two.vercel.app)**
 
 ---
 
