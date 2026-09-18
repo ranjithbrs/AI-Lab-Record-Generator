@@ -358,6 +358,126 @@ def generate_fallback_record(subject, experiment):
                 "Current (I) on the X-axis. The slope of this line represents the Resistance (R = V/I) of the wire."
             )
             result = "The potential difference (V) is found to vary linearly with current (I), verifying Ohm's Law. The resistance of the wire is determined from the slope."
+        elif "conductometric" in exp_lower:
+            aim = "To determine the strength of a given strong acid (HCl) by titrating against standard NaOH conductometrically."
+            theory = (
+                "Conductance of an electrolyte depends on the number and mobility of ions present.\n"
+                "As NaOH is added to HCl, fast-moving H+ ions (mobility 350) are replaced by slower Na+ ions (mobility 50):\n"
+                "H+ + Cl- + Na+ + OH- -> Na+ + Cl- + H2O\n"
+                "Therefore, conductance decreases linearly until the equivalence point. Past the endpoint, excess fast-moving OH- ions "
+                "cause conductance to increase sharply. The intersection of the two straight-line slopes gives the exact equivalence volume."
+            )
+            procedure = (
+                "1. Calibrate the digital conductivity meter with 0.1 M standard KCl solution.\n"
+                "2. Pipette 20 mL of the given HCl solution into a 100 mL beaker and add 40 mL of distilled water to fully immerse the cell.\n"
+                "3. Dip the conductivity cell into the solution and note the initial conductance.\n"
+                "4. Add 0.5 mL of 0.1 N NaOH from the burette, stir thoroughly with a glass rod, and record conductance.\n"
+                "5. Continue titration well past the minimum point (at least 6-8 readings after rise).\n"
+                "6. Plot Conductance (mS) on Y-axis against Volume of NaOH (mL) on X-axis to find the neutralization point."
+            )
+            observation = (
+                "Equivalence Point Volume from graph (V_NaOH) = 19.8 mL\n"
+                "Normality of NaOH = 0.1 N, Volume of HCl = 20 mL\n"
+                "Calculated Normality of HCl (N1 = N2*V2/V1) = (0.1 * 19.8) / 20 = 0.099 N\n"
+                "Strength of HCl = Normality * Equivalent Weight (36.5) = 3.61 g/L"
+            )
+            result = "The strength of the given HCl solution was conductometrically determined to be 0.099 N (3.61 g/L)."
+        elif "hardness" in exp_lower or "edta" in exp_lower:
+            aim = "To estimate the total, permanent, and temporary hardness of a given water sample using standard EDTA solution."
+            theory = (
+                "Hardness is primarily due to soluble bivalent salts of Calcium and Magnesium (Ca2+, Mg2+).\n"
+                "EDTA (Disodium dihydrogen ethylenediaminetetraacetate) forms stable, 1:1 soluble chelate complexes with Ca2+ and Mg2+ at pH 9-10.\n"
+                "Eriochrome Black-T (EBT) is used as indicator. Metal ions bind EBT forming a wine-red complex:\n"
+                "[M-EBT] (wine-red) + EDTA -> [M-EDTA] (colorless) + Free EBT (steel blue)\n"
+                "At endpoint, all metal ions are sequestered by EDTA, restoring the pure steel-blue color of free EBT."
+            )
+            procedure = (
+                "1. Pipette 20 mL of the given hard water sample into a clean 250 mL conical flask.\n"
+                "2. Add 5 mL of NH4Cl-NH4OH buffer solution to maintain pH at 10.\n"
+                "3. Add 2-3 drops of Eriochrome Black-T indicator; solution turns wine-red.\n"
+                "4. Titrate against standardized 0.01 M EDTA solution from burette with continuous swirling.\n"
+                "5. Stop at the sharp change from wine-red to steel-blue and record volume V1.\n"
+                "6. Boil 100 mL of water sample for 15 minutes, filter, and repeat titration on filtrate to determine permanent hardness (V2)."
+            )
+            observation = (
+                "Total Hardness titre value (V1) = 18.4 mL\n"
+                "Permanent Hardness titre value (V2) = 11.2 mL\n"
+                "Temporary Hardness = V1 - V2 = 7.2 mL\n"
+                "Total Hardness = (V1 * Molarity of EDTA * 100 * 1000) / Volume of Sample = 184 ppm (mg/L CaCO3 equivalent)"
+            )
+            result = "Total hardness = 184 ppm, Permanent hardness = 112 ppm, and Temporary hardness = 72 ppm as CaCO3 equivalents."
+        elif "viscosity" in exp_lower or "ostwald" in exp_lower:
+            aim = "To determine the coefficient of absolute and relative viscosity of a given liquid using an Ostwald Viscometer."
+            theory = (
+                "According to Poiseuille's law, the rate of flow of a liquid through a capillary tube depends on viscosity (eta), density (d), and time of flow (t).\n"
+                "Relative Viscosity (eta_L / eta_W) = (d_L * t_L) / (d_W * t_W)\n"
+                "where d_L, d_W are densities and t_L, t_W are flow times for test liquid and water respectively."
+            )
+            procedure = (
+                "1. Thoroughly clean the Ostwald Viscometer with chromic acid solution and rinse with distilled water and dry.\n"
+                "2. Clamp the viscometer vertically in a water bath to maintain constant temperature.\n"
+                "3. Pipette 15 mL of distilled water into the wider limb and suck liquid above the upper index mark A.\n"
+                "4. Release water and start stopwatch when meniscus passes mark A; stop when it passes lower mark B. Record time t_W.\n"
+                "5. Repeat twice for concordant values. Rinse, dry, and repeat entire procedure with the test liquid to determine t_L.\n"
+                "6. Determine densities using a specific gravity bottle."
+            )
+            observation = (
+                "Flow time for water (t_W) = 48.2 s\n"
+                "Flow time for test liquid (t_L) = 82.6 s\n"
+                "Density of water (d_W) = 0.998 g/cm^3\n"
+                "Density of liquid (d_L) = 0.865 g/cm^3\n"
+                "Viscosity of water at 25 C = 0.891 cP\n"
+                "Calculated Viscosity of Liquid = 1.32 cP"
+            )
+            result = "The relative viscosity of the test liquid with respect to water was 1.48, and absolute viscosity was 1.32 centipoise (cP)."
+        elif "surface tension" in exp_lower or "stalagmometer" in exp_lower:
+            aim = "To determine the surface tension of a given liquid using a Stalagmometer by the drop number method."
+            theory = (
+                "The weight of a falling liquid drop is proportional to its surface tension (gamma) and radius of capillary orifice:\n"
+                "m * g = 2 * pi * r * gamma\n"
+                "Comparing equal volumes of test liquid and water: gamma_L / gamma_W = (n_W * d_L) / (n_L * d_W)\n"
+                "where n_W, n_L are drop counts, and d_W, d_L are densities."
+            )
+            procedure = (
+                "1. Clean the stalagmometer with chromic acid, rinse with water and dry.\n"
+                "2. Attach a clean rubber bulb and immerse capillary tip in distilled water.\n"
+                "3. Suck water above upper mark A, clamp vertically, and regulate flow rate to 15-20 drops per minute.\n"
+                "4. Count number of drops falling freely while liquid level drops from mark A to mark B (n_W).\n"
+                "5. Rinse and dry stalagmometer, then repeat three times with test liquid to determine drop count (n_L).\n"
+                "6. Measure liquid densities using a pycnometer / relative density bottle."
+            )
+            observation = (
+                "Mean drop count for water (n_W) = 44 drops\n"
+                "Mean drop count for test liquid (n_L) = 86 drops\n"
+                "Density of water (d_W) = 0.997 g/mL, Density of liquid (d_L) = 0.789 g/mL\n"
+                "Surface tension of water (gamma_W) = 72.8 dynes/cm\n"
+                "Calculated Surface Tension of Liquid = 31.9 dynes/cm"
+            )
+            result = "The surface tension of the given test liquid at room temperature was determined to be 31.9 dynes/cm (mN/m)."
+        elif "aspirin" in exp_lower or "soap" in exp_lower or "saponification" in exp_lower:
+            aim = "To synthesize Aspirin (Acetylsalicylic acid) by acetylation of Salicylic acid."
+            theory = (
+                "Aspirin is synthesized via esterification/acetylation of the phenolic hydroxyl group of salicylic acid "
+                "with acetic anhydride in the presence of concentrated sulfuric acid or phosphoric acid as catalyst:\n"
+                "C7H6O3 (Salicylic Acid) + C4H6O3 (Acetic Anhydride) -> C9H8O4 (Aspirin) + CH3COOH (Acetic Acid)\n"
+                "Pure aspirin precipitates as white needle-shaped crystals."
+            )
+            procedure = (
+                "1. Weigh 2.0 g of dry salicylic acid and transfer into a clean, dry 100 mL conical flask.\n"
+                "2. Add 5.0 mL of acetic anhydride followed by 4-5 drops of concentrated H2SO4.\n"
+                "3. Warm the flask on a water bath at 50-60 C for 15 minutes with gentle swirling.\n"
+                "4. Allow the reaction mixture to cool to room temperature, then add 20 mL of ice-cold water to decompose excess anhydride.\n"
+                "5. Cool in an ice bath until crystallization is complete. Filter the crystals through a Buchner funnel under suction.\n"
+                "6. Recrystallize the crude aspirin using an ethanol-water mixture and dry in a desiccator."
+            )
+            observation = (
+                "Mass of Salicylic acid = 2.0 g\n"
+                "Theoretical yield of Aspirin = 2.61 g\n"
+                "Actual dry yield obtained = 2.18 g\n"
+                "Percentage Yield = (2.18 / 2.61) * 100 = 83.5%\n"
+                "Melting point of synthesized Aspirin = 135-136 C (Literature: 135 C)"
+            )
+            result = "Aspirin was successfully synthesized with a percentage yield of 83.5% and characterized by its melting point."
         elif "titration" in exp_lower or "acid" in exp_lower or "base" in exp_lower:
             aim = "To determine the strength of a given hydrochloric acid solution by titrating it against a standard sodium hydroxide solution."
             theory = (
