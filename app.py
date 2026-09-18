@@ -6,10 +6,72 @@ import os
 app = Flask(__name__)
 CORS(app)  # Enable Cross-Origin Resource Sharing
 
-# Hugging Face setup — token read from environment variable for security
+# AI Provider Keys — read from environment variables for security
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 HF_TOKEN = os.environ.get("HF_TOKEN", "")
 API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-base"
 HEADERS = {"Authorization": f"Bearer {HF_TOKEN}"}
+
+def generate_with_gemini(subject, experiment):
+    if not GEMINI_API_KEY:
+        return None
+    
+    subj_lower = subject.lower() if subject else ""
+    cs_subjects = {"computer science", "cs", "cse", "programming", "python", "java", "c++", "data structure"}
+    subj_words = set(subj_lower.replace(',', ' ').split())
+    is_cs = bool(cs_subjects & subj_words) or any(kw in subj_lower for kw in ["computer science", "data structure", "c++"])
+    
+    if is_cs:
+        prompt = (
+            f"You are a college computer science professor. Generate an authentic, comprehensive laboratory record for the experiment '{experiment}' in the subject '{subject}'.\n"
+            f"Return a single strictly valid JSON object with the following exact keys:\n"
+            f"- 'Aim': Clear objective of the experiment\n"
+            f"- 'Algorithm': Step-by-step algorithm numbered 1, 2, 3...\n"
+            f"- 'Code': Complete, functional, well-commented code in Python/C/Java\n"
+            f"- 'Output': Expected terminal output or test execution result\n"
+            f"- 'Result': Final verification summary\n"
+            f"Do not include markdown backticks or any other text outside the JSON object."
+        )
+    else:
+        prompt = (
+            f"You are a college science professor. Generate an authentic, comprehensive laboratory record for the experiment '{experiment}' in the subject '{subject}'.\n"
+            f"Return a single strictly valid JSON object with the following exact keys:\n"
+            f"- 'Aim': Clear objective of the experiment\n"
+            f"- 'Theory': Relevant chemical/physical/biological theory, laws, and formulas\n"
+            f"- 'Procedure': Numbered step-by-step laboratory execution procedure\n"
+            f"- 'Observation': Realistic experimental observations, values, or readings\n"
+            f"- 'Result': Concluding scientific outcome or calculated values\n"
+            f"Do not include markdown backticks or any other text outside the JSON object."
+        )
+
+    # Use Gemini Flash API
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
+    payload = {
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {
+            "responseMimeType": "application/json",
+            "temperature": 0.3
+        }
+    }
+    
+    try:
+        res = requests.post(url, json=payload, timeout=9)
+        if res.status_code == 200:
+            data = res.json()
+            candidates = data.get("candidates", [])
+            if candidates:
+                text = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+                if text:
+                    import json
+                    parsed = json.loads(text.strip())
+                    print("[INFO] Successfully generated with Gemini AI!")
+                    return parsed
+        else:
+            print(f"[WARN] Gemini API returned status {res.status_code}: {res.text[:120]}")
+    except Exception as err:
+        print(f"[WARN] Gemini API generation error: {err}")
+    
+    return None
 
 def generate_fallback_record(subject, experiment):
     subj_lower = subject.lower() if subject else ""
@@ -811,7 +873,12 @@ def generate_record():
 
     result_data = None
     
-    if use_huggingface:
+    # 1. Try Google Gemini Flash API if GEMINI_API_KEY is configured
+    if GEMINI_API_KEY:
+        result_data = generate_with_gemini(subject, experiment)
+
+    # 2. Try Hugging Face if Gemini wasn't used or returned None
+    if not result_data and use_huggingface:
         prompt = f"Generate a {subject} lab record for {experiment}. Include Aim, Algorithm/Theory, Procedure/Code, Output, Result."
         payload = {"inputs": prompt}
         try:

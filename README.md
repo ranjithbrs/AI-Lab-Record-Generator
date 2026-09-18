@@ -32,23 +32,26 @@
 flowchart TD
     subgraph Client["📱 Frontend (Glassmorphism UI)"]
         A[User Login / Registration] --> B[Experiment Form]
-        B -->|Select Discipline: CS or Science| C[Enter Experiment Title & Aim]
+        B -->|Select Discipline| C[Quick Suggestion Chips or Custom Title]
         C --> D[POST /api/generate JSON Payload]
     end
 
     subgraph Backend["⚙️ Serverless Backend (Flask / Vercel Functions)"]
-        D --> E{Check Hugging Face API}
-        E -->|API Available| F[Prompt Engineering & LLM Inference]
-        E -->|Timeout / Rate-Limit| G[Deterministic Rule-Based Fallback Engine]
-        F --> H[Parse Structured Sections]
-        G --> H
-        H --> I[Standardized JSON Response]
+        D --> E{Check Google Gemini API}
+        E -->|Key Available| F[Gemini 1.5 Flash High-Speed LLM Inference]
+        E -->|No Key / Failed| G{Check Hugging Face}
+        G -->|Token Available| H[Flan-T5 LLM Inference]
+        G -->|Fallback / Offline| I[24+ Curated College Syllabus Templates]
+        F --> J[Standardized JSON Response]
+        H --> J
+        I --> J
     end
 
     subgraph Presentation["📄 Output & Actions"]
-        I --> J[Dynamic Glassmorphic Result View]
-        J --> K[📋 1-Click Copy to Clipboard]
-        J --> L[📥 Download Formatted .txt Record]
+        J --> K[Dynamic Result View]
+        K --> L[📄 Download PDF / Print with College Header]
+        K --> M[📋 1-Click Copy to Clipboard]
+        K --> N[⬇️ Download Plain .txt]
     end
 ```
 
