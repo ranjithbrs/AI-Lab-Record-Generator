@@ -381,7 +381,7 @@ def generate_fallback_record(subject, experiment):
                 "Using N1V1 = N2V2, strength of HCl is determined."
             )
             result = "The strength of the given HCl solution was successfully determined to be 0.1 N through titration."
-        elif "pendulum" in exp_lower:
+        elif "pendulum" in exp_lower and "torsional" not in exp_lower:
             aim = "To determine the acceleration due to gravity (g) using a simple pendulum by plotting L-T^2 graph."
             theory = (
                 "A simple pendulum consists of a heavy point mass (bob) suspended from a rigid support by a light, inextensible string. "
@@ -402,6 +402,139 @@ def generate_fallback_record(subject, experiment):
                 "Graph of L vs T^2 is a straight line passing through the origin."
             )
             result = "The acceleration due to gravity (g) was successfully calculated to be approximately 9.8 m/s^2 using the simple pendulum."
+        elif "vernier" in exp_lower or "caliper" in exp_lower:
+            aim = "To determine the volume of a cylinder and a sphere using Vernier Calipers."
+            theory = (
+                "Vernier Calipers are used to measure dimensions up to 0.1 mm precision.\n"
+                "Least Count (LC) = 1 Main Scale Division (MSD) - 1 Vernier Scale Division (VSD) = 0.1 mm = 0.01 cm.\n"
+                "Total Reading = MSR + (VSR * LC) +/- Zero Correction.\n"
+                "Volume of Cylinder = pi * (D/2)^2 * h\n"
+                "Volume of Sphere = (4/3) * pi * (D/2)^3"
+            )
+            procedure = (
+                "1. Determine the least count and zero error of the Vernier Calipers.\n"
+                "2. Place the cylinder longitudinally between lower jaws to measure height (h).\n"
+                "3. Note down the Main Scale Reading (MSR) and Vernier Coincidence (VSR).\n"
+                "4. Grip the cylinder and sphere across diameters to determine mean diameter (D).\n"
+                "5. Calculate total reading and compute the volume using standard formulas."
+            )
+            observation = (
+                "Least Count = 0.01 cm\n"
+                "Zero Error = Nil\n"
+                "Mean Diameter of Sphere = 2.42 cm\n"
+                "Mean Height of Cylinder = 4.86 cm\n"
+                "Calculated Volume of Cylinder = 22.38 cm^3\n"
+                "Calculated Volume of Sphere = 7.42 cm^3"
+            )
+            result = "The dimensions and volume of the given cylinder and sphere were determined accurately using Vernier Calipers."
+        elif "screw gauge" in exp_lower or "micrometer" in exp_lower:
+            aim = "To determine the thickness of a glass plate and the diameter of a thin wire using a Screw Gauge."
+            theory = (
+                "A screw gauge works on the principle of a screw rotating in a fixed nut.\n"
+                "Pitch of screw = (Distance moved by screw) / (No. of complete rotations) = 1 mm.\n"
+                "Least Count (LC) = Pitch / (Total Head Scale Divisions) = 1 mm / 100 = 0.01 mm.\n"
+                "Total Reading = PSR + (HSR * LC) +/- Zero Correction."
+            )
+            procedure = (
+                "1. Determine the pitch, least count, and zero error of the screw gauge.\n"
+                "2. Place the thin wire between the anvil and spindle and turn the ratchet until it clicks.\n"
+                "3. Record the Pitch Scale Reading (PSR) and Head Scale Coincidence (HSR).\n"
+                "4. Repeat measurements along different parts of the wire at right angles.\n"
+                "5. Repeat the procedure to measure the thickness of the glass plate."
+            )
+            observation = (
+                "Pitch = 1 mm\n"
+                "Least Count = 0.01 mm\n"
+                "Mean Diameter of Wire = 0.48 mm\n"
+                "Mean Thickness of Glass Plate = 2.34 mm"
+            )
+            result = "The diameter of the wire (0.48 mm) and thickness of the glass plate (2.34 mm) were measured using the Screw Gauge."
+        elif "meter bridge" in exp_lower or "metre bridge" in exp_lower:
+            aim = "To determine the resistance and specific resistance (resistivity) of a given wire using a Meter Bridge."
+            theory = (
+                "The meter bridge operates on Wheatstone's bridge principle: P / Q = R / S.\n"
+                "For a uniform wire of length 100 cm, unknown resistance X = R * (100 - l) / l, "
+                "where l is balancing length and R is resistance from resistance box.\n"
+                "Specific Resistance (rho) = (X * pi * r^2) / L, where r is radius and L is length of wire."
+            )
+            procedure = (
+                "1. Assemble the circuit connecting battery, resistance box, unknown wire, and galvanometer.\n"
+                "2. Introduce a suitable resistance R (e.g., 2 ohms) in the resistance box.\n"
+                "3. Slide the jockey gently on the wire to locate the null deflection point (G = 0).\n"
+                "4. Record the balancing length l and calculate (100 - l).\n"
+                "5. Repeat for at least 4 different resistance values and calculate mean X and resistivity."
+            )
+            observation = (
+                "Balancing lengths recorded for R = 2, 3, 4, 5 Ohms.\n"
+                "Mean Unknown Resistance (X) = 3.42 Ohms\n"
+                "Radius of wire (r) = 0.24 mm\n"
+                "Length of wire (L) = 50 cm\n"
+                "Calculated Specific Resistance (rho) = 1.24 x 10^-6 Ohm-m"
+            )
+            result = "The resistance of the given wire was found to be 3.42 Ohms and its specific resistance is 1.24 x 10^-6 Ohm-m."
+        elif "spectrometer" in exp_lower or "prism" in exp_lower:
+            aim = "To determine the angle of the prism (A) and angle of minimum deviation (D), and find the refractive index of the prism."
+            theory = (
+                "Refractive index (mu) of the material of a prism is given by:\n"
+                "mu = sin((A + D) / 2) / sin(A / 2)\n"
+                "where A is the angle of the prism and D is the angle of minimum deviation."
+            )
+            procedure = (
+                "1. Perform initial adjustments of the spectrometer (leveling, focusing telescope and collimator for parallel rays).\n"
+                "2. Place the prism with its refracting edge facing the collimator.\n"
+                "3. Rotate the telescope to observe reflected light from both refracting surfaces and calculate prism angle A.\n"
+                "4. Turn the prism to receive refracted rays and observe the spectrum.\n"
+                "5. Rotate prism table until spectrum turns back; this turning position gives minimum deviation D."
+            )
+            observation = (
+                "Vernier 1 and Vernier 2 readings recorded.\n"
+                "Angle of the Prism (A) = 60 degrees\n"
+                "Angle of Minimum Deviation (D) = 38 degrees 45 minutes\n"
+                "Refractive Index (mu) = sin(49 deg 22 min) / sin(30 deg) = 1.518"
+            )
+            result = "The refractive index of the material of the prism was determined to be 1.52."
+        elif "young" in exp_lower or "bending" in exp_lower:
+            aim = "To determine the Young's Modulus of elasticity of the material of a wooden/metallic beam by uniform bending."
+            theory = (
+                "When a beam supported on two knife edges is loaded at center/symmetrically, bending occurs.\n"
+                "Young's Modulus Y = (3 * g * l * m * p) / (2 * b * d^3 * y)\n"
+                "where m is load, l is length between supports, b is breadth, d is thickness, and y is elevation/depression."
+            )
+            procedure = (
+                "1. Place the beam symmetrically on two knife edges separated by distance l.\n"
+                "2. Suspend equal weight hangers at equal distances from the supports.\n"
+                "3. Focus the traveling microscope on a pin attached to the center of the beam.\n"
+                "4. Record microscope readings for increasing and decreasing loads in steps of 50g.\n"
+                "5. Measure breadth (b) with Vernier calipers and thickness (d) with screw gauge."
+            )
+            observation = (
+                "Distance between knife edges (l) = 60 cm\n"
+                "Breadth (b) = 2.45 cm, Thickness (d) = 0.42 cm\n"
+                "Mean elevation per 50g load (y) = 0.082 cm\n"
+                "Calculated Young's Modulus (Y) = 1.05 x 10^11 N/m^2"
+            )
+            result = "The Young's Modulus of elasticity of the given material was calculated to be 1.05 x 10^11 N/m^2."
+        elif "torsional" in exp_lower:
+            aim = "To determine the rigidity modulus of a wire and moment of inertia of a disc using a Torsional Pendulum."
+            theory = (
+                "A torsional pendulum performs simple harmonic torsional oscillations.\n"
+                "Rigidity Modulus (n) = (8 * pi * I * L) / (T^2 * r^4)\n"
+                "where I is moment of inertia, L is length of suspension wire, T is time period, and r is wire radius."
+            )
+            procedure = (
+                "1. Suspend the circular metallic disc horizontally by the test wire clamped at both ends.\n"
+                "2. Rotate disc slightly in horizontal plane and release to set into torsional oscillations.\n"
+                "3. Record time for 20 oscillations using a stopwatch to compute period T0.\n"
+                "4. Place two identical cylindrical masses at distances d1 and d2 symmetrically, measuring periods T1 and T2.\n"
+                "5. Measure radius of wire with screw gauge and length with meter scale."
+            )
+            observation = (
+                "Length of wire (L) = 65 cm, Radius of wire (r) = 0.45 mm\n"
+                "Time period without masses (T0) = 2.12 s\n"
+                "Time period with masses (T1) = 3.48 s\n"
+                "Calculated Rigidity Modulus (n) = 2.82 x 10^10 N/m^2"
+            )
+            result = "The Rigidity Modulus of the wire was determined to be 2.82 x 10^10 N/m^2 using the Torsional Pendulum."
         else:
             aim = f"To study the principles and perform the experiment of {experiment}."
             theory = (
