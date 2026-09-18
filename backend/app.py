@@ -655,6 +655,122 @@ def generate_fallback_record(subject, experiment):
                 "Calculated Rigidity Modulus (n) = 2.82 x 10^10 N/m^2"
             )
             result = "The Rigidity Modulus of the wire was determined to be 2.82 x 10^10 N/m^2 using the Torsional Pendulum."
+        elif "mitosis" in exp_lower or "onion" in exp_lower:
+            aim = "To prepare a temporary squash mount of onion root tip cells and study the stages of mitosis under a microscope."
+            theory = (
+                "Mitosis is equational cell division occurring in somatic cells, preserving chromosome number.\n"
+                "Active vegetative meristematic tissues in onion (Allium cepa) root tips show distinct mitotic phases:\n"
+                "1. Prophase: Chromatin condenses into distinct chromosomes; nuclear envelope disappears.\n"
+                "2. Metaphase: Chromosomes align along the equatorial metaphase plate attached to spindle fibers.\n"
+                "3. Anaphase: Centromeres split; sister chromatids separate and migrate to opposite poles.\n"
+                "4. Telophase: Chromosomes uncoil; nuclear envelopes reassemble around daughter nuclei followed by cytokinesis."
+            )
+            procedure = (
+                "1. Grow fresh onion root tips over water for 3-4 days in a dark environment.\n"
+                "2. Cut 2-3 mm of root tips and fix in Carnoy's fluid (Glacial acetic acid : Ethanol = 1:3) for 24 hours.\n"
+                "3. Transfer root tips to 1 N HCl and warm at 60 C for 6-8 minutes for acid hydrolysis to dissolve pectin.\n"
+                "4. Wash thoroughly with distilled water and place on a clean glass slide.\n"
+                "5. Stain with 2% Acetocarmine for 10 minutes, add a drop of 45% acetic acid, cover with coverslip.\n"
+                "6. Squash gently under blotting paper with thumb pressure and observe under 10x and 45x objectives."
+            )
+            observation = (
+                "Microscopic field displays meristematic cells displaying distinct stages:\n"
+                "- Interphase: Intact nucleus with prominent nucleolus and diffuse chromatin network.\n"
+                "- Prophase: Thick, dark, coiled rod-like chromosomes visible.\n"
+                "- Metaphase: Chromosomes aligned sharply along the center line (equatorial plane).\n"
+                "- Anaphase: V- and L-shaped chromatids moving towards polar centrioles.\n"
+                "- Telophase: Two distinct daughter nuclei formed with cell plate formation in center."
+            )
+            result = "The stages of mitosis (Prophase, Metaphase, Anaphase, Telophase) were successfully prepared, identified, and recorded."
+        elif "gram" in exp_lower or "stain" in exp_lower:
+            aim = "To identify and differentiate bacteria into Gram-positive and Gram-negative types using the Gram Staining technique."
+            theory = (
+                "Gram staining differentiates bacteria based on chemical and physical properties of their cell walls:\n"
+                "- Gram-positive bacteria have a thick peptidoglycan layer containing teichoic acids that traps Crystal Violet-Iodine complex, resisting alcohol decolorization and appearing purple/violet.\n"
+                "- Gram-negative bacteria have a thinner peptidoglycan layer enclosed by an outer lipopolysaccharide membrane. Alcohol dissolves the outer lipids, eluting the CV-I complex; counterstain Safranin stains them pink/red."
+            )
+            procedure = (
+                "1. Prepare a thin bacterial smear from culture on a clean glass slide, air dry, and heat-fix by passing through flame 3 times.\n"
+                "2. Flood smear with primary stain Crystal Violet for 1 minute, then gently wash with tap water.\n"
+                "3. Flood with mordant Gram's Iodine for 1 minute; wash gently with water.\n"
+                "4. Decolorize with 95% ethyl alcohol for 10-15 seconds until runoff is colorless; immediately wash with water to stop reaction.\n"
+                "5. Counterstain with Safranin for 45 seconds, rinse with water, and blot dry with bibulous paper.\n"
+                "6. Add a drop of immersion oil and observe under 100x oil immersion objective."
+            )
+            observation = (
+                "Sample A: Cocci clustered in bunches retaining intense purple/violet color (Gram-positive, e.g., Staphylococcus aureus).\n"
+                "Sample B: Short rod-shaped bacilli stained distinct pink/red color (Gram-negative, e.g., Escherichia coli)."
+            )
+            result = "The bacterial samples were successfully differentiated into Gram-positive (purple) and Gram-negative (pink) organisms."
+        elif "dna" in exp_lower or "isolation" in exp_lower or "extraction" in exp_lower:
+            aim = "To isolate and extract crude genomic DNA from plant material (Banana / Onion)."
+            theory = (
+                "Plant cell DNA is protected within cell walls, plasma membranes, and nuclear envelopes.\n"
+                "- Mechanical grinding breaks rigid cellulose cell walls.\n"
+                "- Detergent (SDS / liquid detergent) dissolves lipid bilayer cell and nuclear membranes by emulsification.\n"
+                "- Sodium Chloride (NaCl) provides Na+ ions that shield negative charges of phosphate groups, allowing DNA strands to clump together.\n"
+                "- Chilled Ethanol precipitates nucleic acids because DNA is polar and insoluble in cold alcohol, separating it from soluble proteins."
+            )
+            procedure = (
+                "1. Mash 50 g of peeled banana or chopped onion thoroughly with a mortar and pestle.\n"
+                "2. Prepare extraction buffer: 50 mL distilled water, 1 teaspoon table salt, and 2 tablespoons liquid detergent.\n"
+                "3. Mix the plant paste with extraction buffer and incubate in a 60 C water bath for 15 minutes to denature DNases.\n"
+                "4. Chill the mixture in an ice-water bath for 5 minutes and filter through a muslin cloth / filter funnel into a clean beaker.\n"
+                "5. Tilt the beaker and slowly layer ice-cold 95% ethanol down the side wall without mixing.\n"
+                "6. Observe white translucent cottony precipitate forming at the alcohol-water interface. Spool out with a glass rod."
+            )
+            observation = (
+                "A dense, white fibrous precipitate of stringy DNA strands formed immediately at the alcohol-filtrate boundary layer.\n"
+                "The DNA was easily spooled around a clean glass rod as viscous strands."
+            )
+            result = "Crude genomic DNA was successfully extracted and visualized from plant tissue using the alcohol precipitation method."
+        elif "carbohydrate" in exp_lower or "protein" in exp_lower or "biochemical" in exp_lower or "food" in exp_lower:
+            aim = "To detect the presence of carbohydrates, proteins, and fats in given food/biological samples through biochemical tests."
+            theory = (
+                "Biochemical tests rely on specific color reactions with functional groups:\n"
+                "- Benedict's Test: Reducing sugars reduce blue Cu2+ to brick-red Cu2O precipitate upon heating.\n"
+                "- Iodine Test: Amylose in starch traps iodine molecules in its helical structure, yielding a deep blue-black color.\n"
+                "- Biuret Test: Peptide bonds react with cupric ions in alkaline medium forming a violet coordination complex.\n"
+                "- Sudan III / Emulsion Test: Lipids dissolve non-polar dyes (Sudan III) producing red droplets or form milky white emulsions."
+            )
+            procedure = (
+                "1. Test for Reducing Sugar: Add 2 mL Benedict's reagent to 2 mL sample; heat in boiling water bath for 5 minutes.\n"
+                "2. Test for Starch: Add 2-3 drops of Lugol's iodine solution to 2 mL sample solution.\n"
+                "3. Test for Protein: Add 1 mL 10% NaOH and 4 drops 1% CuSO4 solution to 2 mL sample solution; shake well.\n"
+                "4. Test for Lipids: Shake 1 mL sample with 2 mL ethanol, decant liquid into a test tube containing 2 mL water."
+            )
+            observation = (
+                "1. Benedict's Test: Brick-red precipitate formed -> Reducing sugars present.\n"
+                "2. Iodine Test: Immediate blue-black coloration -> Starch present.\n"
+                "3. Biuret Test: Distinct purple/violet color observed -> Proteins present.\n"
+                "4. Emulsion Test: Turbid milky-white emulsion formed -> Lipids/Fats present."
+            )
+            result = "Qualitative biochemical analysis confirmed the presence of reducing sugars, starch, proteins, and lipids in the test sample."
+        elif "photosynthesis" in exp_lower or "hydrilla" in exp_lower:
+            aim = "To demonstrate the evolution of oxygen during photosynthesis using Hydrilla and examine factors affecting its rate."
+            theory = (
+                "Photosynthesis is the photochemical synthesis of carbohydrates from CO2 and H2O:\n"
+                "6 CO2 + 6 H2O + Light -> C6H12O6 + 6 O2 (gas)\n"
+                "Aquatic plants like Hydrilla release produced O2 as visible gas bubbles through intercellular spaces in cut stems.\n"
+                "The rate of bubble release is a direct metric of photosynthetic activity, influenced by light intensity and CO2 availability."
+            )
+            procedure = (
+                "1. Place several freshly cut healthy sprigs of Hydrilla verticillata into the bulb of a short-stem glass funnel.\n"
+                "2. Invert the funnel in a large glass beaker filled with water containing 0.5 g sodium bicarbonate (NaHCO3) as CO2 source.\n"
+                "3. Invert a water-filled test tube over the stem of the funnel, ensuring no initial air bubble is trapped.\n"
+                "4. Place the apparatus under direct sunlight or at a distance of 20 cm from a 100 W incandescent lamp.\n"
+                "5. Count bubbles released per minute from the cut stems. Vary lamp distance (30 cm, 40 cm, 50 cm) and recount.\n"
+                "6. Test the collected gas in the test tube with a glowing wood splinter."
+            )
+            observation = (
+                "Distance from light source vs Bubbles per minute:\n"
+                "- 20 cm: 42 bubbles/min\n"
+                "- 30 cm: 26 bubbles/min\n"
+                "- 40 cm: 15 bubbles/min\n"
+                "- 50 cm: 8 bubbles/min\n"
+                "When the glowing splinter is inserted into the gas cavity, it reignites into a flame, confirming oxygen."
+            )
+            result = "Evolution of oxygen during photosynthesis was verified, and the photosynthetic rate was confirmed to be directly proportional to light intensity."
         else:
             aim = f"To study the principles and perform the experiment of {experiment}."
             theory = (
