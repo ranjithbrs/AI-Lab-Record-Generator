@@ -33,6 +33,11 @@
 
         <!-- Generated Record -->
         <div id="record-content" style="display: none;">
+            <div class="print-meta-bar" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px; padding: 14px 18px; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; font-size: 0.95rem; text-align: left;">
+                <div>👤 <strong>Student:</strong> <span id="print-student-name" style="color: #a5b4fc;">Student</span></div>
+                <div>📅 <strong>Date:</strong> <span id="print-date" style="color: #a5b4fc;">—</span></div>
+            </div>
+
             <div class="lab-record-container">
                 <!-- Common: Aim -->
                 <div class="lab-section">
@@ -77,12 +82,19 @@
                     <h4>✅ Result</h4>
                     <p id="val-result">...</p>
                 </div>
+
+                <!-- Print Only Faculty Signature Block -->
+                <div class="print-signature-box" style="display: flex; justify-content: space-between; margin-top: 30px; padding-top: 15px; border-top: 1px dashed rgba(255, 255, 255, 0.2); font-size: 0.9rem; color: #94a3b8;">
+                    <div>Date of Submission: __________________</div>
+                    <div>Faculty Signature: __________________</div>
+                </div>
             </div>
 
             <!-- Action Buttons -->
             <div class="btn-group">
-                <button onclick="copyToClipboard()" class="btn btn-secondary">📋 Copy to Clipboard</button>
+                <button onclick="downloadPDF()" class="btn" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">📄 Download PDF / Print</button>
                 <button onclick="downloadRecord()" class="btn btn-success">⬇️ Download .txt</button>
+                <button onclick="copyToClipboard()" class="btn btn-secondary">📋 Copy</button>
                 <a href="form.html" class="btn btn-secondary">🔄 Generate Another</a>
             </div>
         </div>

@@ -334,3 +334,112 @@ a:hover {
 .toast.show {
     transform: translateX(-50%) translateY(0);
 }
+
+/* =========================================================
+   Print / PDF Submission Stylesheet
+   ========================================================= */
+@media print {
+    body {
+        background: #ffffff !important;
+        color: #0f172a !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: block !important;
+    }
+
+    /* Hide non-printable elements */
+    .btn-group, .toast, .footer-text, .btn, button, #loading-container, #error-container, #toast, a {
+        display: none !important;
+    }
+
+    .card-container, .wide-card {
+        background: #ffffff !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 10px 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        backdrop-filter: none !important;
+        animation: none !important;
+    }
+
+    h2 {
+        color: #0f172a !important;
+        background: none !important;
+        -webkit-text-fill-color: initial !important;
+        border-bottom: 2px solid #0f172a !important;
+        padding-bottom: 8px !important;
+        margin-bottom: 16px !important;
+        font-size: 1.8rem !important;
+        text-align: center !important;
+    }
+
+    .print-meta-bar {
+        background: #f8fafc !important;
+        border: 1px solid #cbd5e1 !important;
+        color: #0f172a !important;
+        margin-bottom: 20px !important;
+        padding: 10px 14px !important;
+        border-radius: 4px !important;
+    }
+
+    .print-meta-bar strong {
+        color: #0f172a !important;
+    }
+
+    .print-meta-bar span {
+        color: #1e293b !important;
+        font-weight: 600;
+    }
+
+    .lab-record-container {
+        background: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 6px !important;
+        padding: 20px !important;
+        margin-top: 10px !important;
+    }
+
+    .lab-section {
+        border-bottom: 1px solid #e2e8f0 !important;
+        margin-bottom: 14px !important;
+        padding-bottom: 12px !important;
+        page-break-inside: avoid;
+    }
+
+    .lab-section h4 {
+        color: #1e3a8a !important;
+        font-size: 1.05rem !important;
+        margin-bottom: 6px !important;
+        font-weight: 700 !important;
+    }
+
+    .lab-section p {
+        color: #1e293b !important;
+        font-size: 0.95rem !important;
+        line-height: 1.6 !important;
+    }
+
+    .lab-section pre {
+        background: #f8fafc !important;
+        color: #0f172a !important;
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 4px !important;
+        font-size: 0.85rem !important;
+        line-height: 1.45 !important;
+        page-break-inside: avoid;
+    }
+
+    .print-signature-box {
+        display: flex !important;
+        justify-content: space-between !important;
+        margin-top: 50px !important;
+        padding-top: 20px !important;
+        border-top: 1px dashed #64748b !important;
+        font-size: 0.95rem !important;
+        font-weight: 600 !important;
+        color: #0f172a !important;
+        page-break-inside: avoid;
+    }
+}

@@ -144,9 +144,14 @@ async function loadResultPage() {
         const recordContent = document.getElementById("record-content");
         recordContent.style.display = "block";
         
-        // Populate Aim and Result (common to both layout variants)
+        // Populate Aim, Result, and Print Metadata
         document.getElementById("val-aim").innerText = data.Aim || "...";
         document.getElementById("val-result").innerText = data.Result || "...";
+        
+        const nameEl = document.getElementById("print-student-name");
+        if (nameEl) nameEl.innerText = username;
+        const dateEl = document.getElementById("print-date");
+        if (dateEl) dateEl.innerText = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
         
         // Check layout structure from backend response
         if (data.Algorithm) {
@@ -172,6 +177,10 @@ async function loadResultPage() {
 }
 
 // 4. Action functions on Result Page
+function downloadPDF() {
+    window.print();
+}
+
 function copyToClipboard() {
     if (!currentRecordData) return;
     
