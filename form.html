@@ -23,9 +23,15 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="width: 100%;">
                 <label for="Experiment">Experiment Title</label>
-                <input type="text" id="Experiment" name="Experiment" placeholder="e.g., Binary Search or Ohm's Law" required>
+                <input type="text" id="Experiment" name="Experiment" placeholder="e.g., Binary Search or Ohm's Law" required autocomplete="off">
+                
+                <!-- Quick Suggestions Area -->
+                <div id="suggestions-wrapper" style="display: none; width: 100%; margin-top: 10px;">
+                    <span style="font-size: 0.82rem; color: #94a3b8; font-weight: 500;">💡 Quick Suggestions (Click to fill):</span>
+                    <div id="suggestion-chips" class="chip-container"></div>
+                </div>
             </div>
 
             <button type="submit">Generate Lab Record</button>

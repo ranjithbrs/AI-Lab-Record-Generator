@@ -215,12 +215,73 @@ function downloadRecord() {
     showToast("Downloaded record successfully!");
 }
 
+// 5. Experiment suggestions for quick selection
+const EXPERIMENT_SUGGESTIONS = {
+    "Computer Science": [
+        "Stack Operations", "Queue Implementation", "Binary Search", 
+        "Bubble Sort", "Merge Sort", "Quick Sort", 
+        "Singly Linked List", "Matrix Multiplication", "SQL DDL & DML"
+    ],
+    "Physics": [
+        "Ohm's Law", "Simple Pendulum", "Vernier Calipers", 
+        "Screw Gauge", "Meter Bridge", "Spectrometer Prism", 
+        "Young's Modulus", "Torsional Pendulum"
+    ],
+    "Chemistry": [
+        "Hardness of Water EDTA", "Conductometric Titration", "Acid-Base Titration", 
+        "Viscosity of Liquid", "Surface Tension", "Preparation of Aspirin"
+    ],
+    "Biology": [
+        "Mitosis in Onion Root Tip", "Gram Staining", "Isolation of DNA", 
+        "Biochemical Food Tests", "Photosynthesis in Hydrilla"
+    ]
+};
+
+function setupSubjectSuggestions() {
+    const subjectSelect = document.getElementById("Subject");
+    const experimentInput = document.getElementById("Experiment");
+    const wrapper = document.getElementById("suggestions-wrapper");
+    const chipsContainer = document.getElementById("suggestion-chips");
+    
+    if (!subjectSelect || !chipsContainer) return;
+    
+    function renderChips(subject) {
+        chipsContainer.innerHTML = "";
+        const list = EXPERIMENT_SUGGESTIONS[subject] || [];
+        if (list.length > 0) {
+            wrapper.style.display = "block";
+            list.forEach(item => {
+                const chip = document.createElement("span");
+                chip.className = "suggestion-chip";
+                chip.innerText = item;
+                chip.onclick = () => {
+                    experimentInput.value = item;
+                    document.querySelectorAll(".suggestion-chip").forEach(c => c.classList.remove("active"));
+                    chip.classList.add("active");
+                };
+                chipsContainer.appendChild(chip);
+            });
+        } else {
+            wrapper.style.display = "none";
+        }
+    }
+    
+    subjectSelect.addEventListener("change", (e) => {
+        renderChips(e.target.value);
+    });
+    
+    if (subjectSelect.value) {
+        renderChips(subjectSelect.value);
+    }
+}
+
 // Initialize scripts based on which page is active
 window.addEventListener("DOMContentLoaded", () => {
     const path = window.location.pathname;
     
     if (path.includes("form.html")) {
         checkAuth();
+        setupSubjectSuggestions();
     } else if (path.includes("result.html")) {
         loadResultPage();
     }
