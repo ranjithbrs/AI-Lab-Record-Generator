@@ -6,6 +6,21 @@ import os
 app = Flask(__name__)
 CORS(app)  # Enable Cross-Origin Resource Sharing
 
+# Load local .env if present
+for env_dir in [os.path.dirname(os.path.abspath(__file__)), os.path.dirname(os.path.dirname(os.path.abspath(__file__)))]:
+    env_file = os.path.join(env_dir, '.env')
+    if os.path.exists(env_file):
+        try:
+            with open(env_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith('#') and '=' in line:
+                        k, v = line.split('=', 1)
+                        os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+        except Exception:
+            pass
+        break
+
 # AI Provider Keys — read from environment variables for security
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 HF_TOKEN = os.environ.get("HF_TOKEN", "")
@@ -44,8 +59,8 @@ def generate_with_gemini(subject, experiment):
             f"Do not include markdown backticks or any other text outside the JSON object."
         )
 
-    # Use Gemini Flash API
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
+    # Use Gemini Flash models with graceful fallback
+    models_to_try = ["gemini-3.6-flash", "gemini-flash-latest"]
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {
@@ -54,22 +69,24 @@ def generate_with_gemini(subject, experiment):
         }
     }
     
-    try:
-        res = requests.post(url, json=payload, timeout=9)
-        if res.status_code == 200:
-            data = res.json()
-            candidates = data.get("candidates", [])
-            if candidates:
-                text = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "")
-                if text:
-                    import json
-                    parsed = json.loads(text.strip())
-                    print("[INFO] Successfully generated with Gemini AI!")
-                    return parsed
-        else:
-            print(f"[WARN] Gemini API returned status {res.status_code}: {res.text[:120]}")
-    except Exception as err:
-        print(f"[WARN] Gemini API generation error: {err}")
+    for model_name in models_to_try:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={GEMINI_API_KEY}"
+        try:
+            res = requests.post(url, json=payload, timeout=10)
+            if res.status_code == 200:
+                data = res.json()
+                candidates = data.get("candidates", [])
+                if candidates:
+                    text = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+                    if text:
+                        import json
+                        parsed = json.loads(text.strip())
+                        print(f"[INFO] Successfully generated with Gemini ({model_name})!")
+                        return parsed
+            else:
+                print(f"[WARN] Gemini {model_name} status {res.status_code}. Falling back to templates.")
+        except Exception as err:
+            print(f"[WARN] Gemini {model_name} request failed: {err}")
     
     return None
 
