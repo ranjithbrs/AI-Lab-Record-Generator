@@ -137,7 +137,7 @@ Go to **`http://127.0.0.1:5000`** in Google Chrome or your favorite browser!
 🏛️ *Nehru Institute of Engineering and Technology, Coimbatore*  
 
 * 🌐 **Live Website**: [ai-lab-record-generator-two.vercel.app](https://ai-lab-record-generator-two.vercel.app)
-* 💼 **LinkedIn**: [linkedin.com/in/ranjith-b-csbs23](https://linkedin.com/in/ranjith-b-csbs23)
+* 💼 **LinkedIn**: [linkedin.com/in/ranjith-b-csbs](https://linkedin.com/in/ranjith-b-csbs)
 * 🐙 **GitHub**: [github.com/ranjithbrs](https://github.com/ranjithbrs)
 * 🌐 **Portfolio**: [ranjithbrs.github.io/portfolio](https://ranjithbrs.github.io/portfolio/)
 * 📧 **Email**: ranjithb2k06@gmail.com
