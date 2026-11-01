@@ -162,6 +162,53 @@ class TestApiFailureAndTimeoutScenarios(unittest.TestCase):
                 self.assertIn("mitosis", data["Aim"].lower())
                 self.assertIn("Prophase", data["Theory"])
 
+    @patch("requests.post")
+    def test_huggingface_malformed_response_triggers_schema_fallback(self, mock_post):
+        """Verify that malformed or non-schema Hugging Face responses fail validation and trigger template fallback."""
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = [{"generated_text": "This is just a loose sentence with no valid academic schema."}]
+        mock_post.return_value = mock_response
+
+        with patch.object(lab_app, "GEMINI_API_KEY", ""):
+            with patch.dict(lab_app.HEADERS, {"Authorization": "Bearer hf_test_token"}):
+                response = self.client.post(
+                    "/generate",
+                    json={"Subject": "Computer Science", "Experiment": "Binary Search"}
+                )
+                self.assertEqual(response.status_code, 200)
+                data = response.get_json()
+                # Should not have raw unvalidated sentence dumped into fields
+                self.assertIn("Aim", data)
+                self.assertIn("Binary Search", data["Aim"])
+                self.assertIn("def binary_search", data["Code"])
+
+    @patch("requests.post")
+    def test_huggingface_valid_json_schema_accepted(self, mock_post):
+        """Verify that valid structured JSON from Hugging Face is accepted by strict schema validation."""
+        valid_json_payload = {
+            "Aim": "To implement Bubble Sort in Python to order an array of integers.",
+            "Algorithm": "1. Iterate through array.\n2. Compare adjacent elements.\n3. Swap if greater.",
+            "Code": "def bubble_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        for j in range(0, n-i-1):\n            if arr[j] > arr[j+1]: arr[j], arr[j+1] = arr[j+1], arr[j]\n    return arr",
+            "Output": "Sorted array: [11, 12, 22, 25, 34, 64, 90]",
+            "Result": "Bubble sort algorithm successfully organized elements in ascending order."
+        }
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = [{"generated_text": json.dumps(valid_json_payload)}]
+        mock_post.return_value = mock_response
+
+        with patch.object(lab_app, "GEMINI_API_KEY", ""):
+            with patch.dict(lab_app.HEADERS, {"Authorization": "Bearer hf_test_token"}):
+                response = self.client.post(
+                    "/generate",
+                    json={"Subject": "Computer Science", "Experiment": "Bubble Sort"}
+                )
+                self.assertEqual(response.status_code, 200)
+                data = response.get_json()
+                self.assertEqual(data["Aim"], valid_json_payload["Aim"])
+                self.assertEqual(data["Code"], valid_json_payload["Code"])
+
 
 class TestContentValidationAndFormatting(unittest.TestCase):
     """3. Validate generated content and formatting."""
@@ -194,6 +241,30 @@ class TestContentValidationAndFormatting(unittest.TestCase):
         res_sci = lab_app.generate_fallback_record("Geology", "Seismic Refraction Analysis")
         self.assertEqual(set(res_sci.keys()), {"Aim", "Theory", "Procedure", "Observation", "Result"})
         self.assertIn("Seismic Refraction Analysis", res_sci["Aim"])
+
+    def test_validate_record_schema_logic(self):
+        """Verify that validate_record_schema strictly enforces key existence and minimum content length."""
+        valid_cs = {
+            "Aim": "To study and implement the binary search algorithm.",
+            "Algorithm": "1. Initialize low and high pointers.\n2. Compute mid.\n3. Search key.",
+            "Code": "def search(a, k):\n    return binary_search(a, k)",
+            "Output": "Element found at index 4.",
+            "Result": "Binary search algorithm executed successfully."
+        }
+        self.assertTrue(lab_app.validate_record_schema(valid_cs, is_cs=True))
+
+        # Missing key
+        invalid_cs_missing = dict(valid_cs)
+        del invalid_cs_missing["Code"]
+        self.assertFalse(lab_app.validate_record_schema(invalid_cs_missing, is_cs=True))
+
+        # Short/empty content (<15 chars)
+        invalid_cs_short = dict(valid_cs, Aim="Too short")
+        self.assertFalse(lab_app.validate_record_schema(invalid_cs_short, is_cs=True))
+
+        # Non-dict
+        self.assertFalse(lab_app.validate_record_schema(["not", "a", "dict"], is_cs=True))
+        self.assertFalse(lab_app.validate_record_schema(None, is_cs=True))
 
 
 class TestApiKeyProtectionAndEnvVars(unittest.TestCase):

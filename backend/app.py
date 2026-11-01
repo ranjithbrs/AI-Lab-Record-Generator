@@ -27,6 +27,21 @@ HF_TOKEN = os.environ.get("HF_TOKEN", "")
 API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-base"
 HEADERS = {"Authorization": f"Bearer {HF_TOKEN}"}
 
+def validate_record_schema(record, is_cs=False):
+    """
+    Validates that a generated record is a valid non-empty dictionary containing
+    all required academic fields with sufficient, meaningful content.
+    """
+    if not isinstance(record, dict):
+        return False
+    required_keys = ["Aim", "Algorithm", "Code", "Output", "Result"] if is_cs else ["Aim", "Theory", "Procedure", "Observation", "Result"]
+    for k in required_keys:
+        val = record.get(k)
+        if not val or not isinstance(val, str) or len(val.strip()) < 15:
+            return False
+    return True
+
+
 def generate_with_gemini(subject, experiment):
     if not GEMINI_API_KEY:
         return None
@@ -80,9 +95,22 @@ def generate_with_gemini(subject, experiment):
                     text = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "")
                     if text:
                         import json
-                        parsed = json.loads(text.strip())
-                        print(f"[INFO] Successfully generated with Gemini ({model_name})!")
-                        return parsed
+                        try:
+                            clean_text = text.strip()
+                            if clean_text.startswith("```json"):
+                                clean_text = clean_text[7:]
+                            if clean_text.startswith("```"):
+                                clean_text = clean_text[3:]
+                            if clean_text.endswith("```"):
+                                clean_text = clean_text[:-3]
+                            parsed = json.loads(clean_text.strip())
+                            if validate_record_schema(parsed, is_cs):
+                                print(f"[INFO] Successfully generated with Gemini ({model_name})!")
+                                return parsed
+                            else:
+                                print(f"[WARN] Gemini output did not meet strict academic schema requirements.")
+                        except Exception as parse_err:
+                            print(f"[WARN] Failed to parse JSON from Gemini: {parse_err}")
             else:
                 print(f"[WARN] Gemini {model_name} status {res.status_code}. Falling back to templates.")
         except Exception as err:
@@ -867,7 +895,7 @@ def generate_fallback_record(subject, experiment):
                 f"During the {experiment} experiment, data was systematically gathered and recorded in tabular format. "
                 f"The observations demonstrate direct correlation and follow established theoretical models."
             )
-            result = f"The experiment {experiment} in {subject} was successfully conducted, and observations were verified."
+            result = f"The experiment {experiment} in {subject} was successfully conducted, and observations were recorded."
             
         return {
             "Aim": aim,
@@ -896,7 +924,16 @@ def generate_record():
 
     # 2. Try Hugging Face if Gemini wasn't used or returned None
     if not result_data and use_huggingface:
-        prompt = f"Generate a {subject} lab record for {experiment}. Include Aim, Algorithm/Theory, Procedure/Code, Output, Result."
+        subj_lower = subject.lower() if subject else ""
+        cs_subjects = {"computer science", "cs", "cse", "programming", "python", "java", "c++", "data structure"}
+        subj_words = set(subj_lower.replace(',', ' ').split())
+        is_cs = bool(cs_subjects & subj_words) or any(kw in subj_lower for kw in ["computer science", "data structure", "c++"])
+
+        prompt = (
+            f"Generate a {subject} lab record for {experiment}.\n"
+            f"Return a strict JSON object with keys: "
+            + ("'Aim', 'Algorithm', 'Code', 'Output', 'Result'" if is_cs else "'Aim', 'Theory', 'Procedure', 'Observation', 'Result'")
+        )
         payload = {"inputs": prompt}
         try:
             response = requests.post(API_URL, headers=HEADERS, json=payload, timeout=8)
@@ -909,24 +946,25 @@ def generate_record():
                     generated_text = result["generated_text"]
                 
                 if generated_text:
-                    subj_lower = subject.lower() if subject else ""
-                    is_cs = any(kw in subj_lower for kw in ["computer science", "cs", "programming", "cse", "python", "java", "c++", "data structure"])
-                    if is_cs:
-                        result_data = {
-                            "Aim": f"To study {experiment}",
-                            "Algorithm": f"Algorithm steps for {experiment}: {generated_text}",
-                            "Code": f"Sample code or procedure for {experiment}: {generated_text}",
-                            "Output": f"Expected output for {experiment}: {generated_text}",
-                            "Result": f"Successfully executed {experiment} in {subject} lab."
-                        }
+                    import json
+                    parsed_hf = None
+                    try:
+                        clean_text = generated_text.strip()
+                        if clean_text.startswith("```json"):
+                            clean_text = clean_text[7:]
+                        if clean_text.startswith("```"):
+                            clean_text = clean_text[3:]
+                        if clean_text.endswith("```"):
+                            clean_text = clean_text[:-3]
+                        parsed_hf = json.loads(clean_text.strip())
+                    except Exception:
+                        pass
+                    
+                    if validate_record_schema(parsed_hf, is_cs):
+                        print("[INFO] Successfully generated and validated record from Hugging Face!")
+                        result_data = parsed_hf
                     else:
-                        result_data = {
-                            "Aim": f"To study {experiment}",
-                            "Theory": f"Theory explanation for {experiment}: {generated_text}",
-                            "Procedure": f"Step-by-step procedure for {experiment}: {generated_text}",
-                            "Observation": f"Observations for {experiment}: {generated_text}",
-                            "Result": f"Successfully performed {experiment} in {subject} lab."
-                        }
+                        print("[WARN] Hugging Face response failed strict academic schema validation. Falling back to curated templates.")
         except Exception as e:
             print(f"[WARN] Hugging Face API error: {e}. Falling back to templates.")
             

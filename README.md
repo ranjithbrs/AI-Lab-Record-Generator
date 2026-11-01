@@ -18,12 +18,12 @@
 | Status | Verification Item | Details |
 |:---:|:---|:---|
 | ✅ | **Verify prompt generation and output quality** | Tested prompt engineering for CS & Science disciplines. Validated Aim, Algorithm, Code, Output, and Result precision. |
-| ✅ | **Test Hugging Face API failure and timeout scenarios** | Verified graceful 3-tier cascade: Gemini → Hugging Face (handles 503/401/timeout) → 24+ curated offline templates with zero downtime. |
-| ✅ | **Validate generated content and formatting** | Verified strict schema compliance, clean markdown/monospace indentation, and no raw JSON artifacts across all subjects. |
+| ✅ | **Test Hugging Face API failure and timeout scenarios** | Verified graceful 3-tier cascade: Gemini → Hugging Face (with strict academic schema validation rejecting malformed or loose text) → 24+ curated offline templates with zero downtime. |
+| ✅ | **Validate generated content and formatting** | Verified strict schema compliance, clean markdown/monospace indentation, DOM XSS prevention (`textContent`), and no raw JSON artifacts across all subjects. |
 | ✅ | **Review API key protection and environment variables** | Verified that no secrets are committed to Git. `.env` is isolated via `.gitignore`, and keys are safely injected via environment variables. |
 | ✅ | **Test frontend/backend integration** | Verified CORS headers, JSON request/response contracts, missing parameter handling, and cross-origin compatibility. |
 | ✅ | **Add generated output screenshots** | Added high-resolution visual previews for Login, Generator Form, CS Reports, Science Reports, and College PDF Printouts. |
-| ✅ | **Improve setup instructions and tests** | Added standalone automated test suite (`test_suite.py` with 14 automated test cases) and enhanced smoke test (`test_api.py`). |
+| ✅ | **Improve setup instructions and tests** | Added standalone automated test suite (`test_suite.py` with 17 automated test cases) and enhanced smoke test (`test_api.py`). |
 
 ---
 
@@ -106,7 +106,7 @@ Depending on your subject, the app creates the exact academic format your profes
 
 ## 📚 Supported Experiments (Out of the Box)
 
-Even without an internet connection or AI key, the generator has **24+ built-in, verified templates**:
+Even without an internet connection or AI key, the generator has **24+ built-in, curated standard laboratory templates**:
 
 | Subject | Popular Pre-Built Experiments |
 |---|---|
@@ -129,7 +129,9 @@ All API keys are strictly loaded from environment variables and never exposed to
 | `HF_TOKEN` | Hugging Face user access token for Flan-T5 inference | `""` | Optional Fallback |
 | `TEST_SERVER_URL` | Base URL used by automated integration test scripts | `http://127.0.0.1:5000` | Local Testing Only |
 
-Local secrets are stored in `.env`, which is strictly ignored by `.gitignore`.
+Local secrets are stored in `.env`, which is strictly ignored by `.gitignore`. Additionally, all frontend notifications and dynamic DOM updates use `textContent` rather than `innerHTML` to prevent Cross-Site Scripting (XSS).
+
+> ⚖️ **Academic Notice**: Generated records provide educational reference frameworks, theoretical principles, standard procedures, and illustrative sample observations. In laboratory coursework, students must always record and substitute their actual experimental bench readings and measured apparatus values in accordance with their institution's syllabus and faculty instructions.
 
 ---
 
@@ -152,7 +154,7 @@ For developers curious about the underlying technology:
 A comprehensive test suite is provided to validate all 7 verification criteria:
 
 ```bash
-# 1. Run full unit and regression test suite (14 automated tests)
+# 1. Run full unit and regression test suite (17 automated tests)
 python -m unittest test_suite.py -v
 
 # 2. Run API integration / smoke test (works against local or live server)
