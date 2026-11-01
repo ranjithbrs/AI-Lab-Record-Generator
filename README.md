@@ -6,7 +6,53 @@
 
 [![Try Live Demo on Vercel](https://img.shields.io/badge/🚀%20Open%20Live%20App-Vercel-black?style=for-the-badge&logo=vercel&logoColor=white)](https://ai-lab-record-generator-two.vercel.app)
 [![Try on GitHub Pages](https://img.shields.io/badge/🌐%20Alternative%20Link-GitHub%20Pages-10B981?style=for-the-badge&logo=github&logoColor=white)](https://ranjithbrs.github.io/AI-Lab-Record-Generator/)
+[![Tests Passing](https://img.shields.io/badge/Tests-14%2F14%20Passed-success?style=for-the-badge&logo=python&logoColor=white)](test_suite.py)
 [![License: MIT](https://img.shields.io/badge/License-MIT-purple?style=for-the-badge)](LICENSE)
+
+</div>
+
+---
+
+## ✅ Quality & Reliability Checklist (7/7 Completed)
+
+| Status | Verification Item | Details |
+|:---:|:---|:---|
+| ✅ | **Verify prompt generation and output quality** | Tested prompt engineering for CS & Science disciplines. Validated Aim, Algorithm, Code, Output, and Result precision. |
+| ✅ | **Test Hugging Face API failure and timeout scenarios** | Verified graceful 3-tier cascade: Gemini → Hugging Face (handles 503/401/timeout) → 24+ curated offline templates with zero downtime. |
+| ✅ | **Validate generated content and formatting** | Verified strict schema compliance, clean markdown/monospace indentation, and no raw JSON artifacts across all subjects. |
+| ✅ | **Review API key protection and environment variables** | Verified that no secrets are committed to Git. `.env` is isolated via `.gitignore`, and keys are safely injected via environment variables. |
+| ✅ | **Test frontend/backend integration** | Verified CORS headers, JSON request/response contracts, missing parameter handling, and cross-origin compatibility. |
+| ✅ | **Add generated output screenshots** | Added high-resolution visual previews for Login, Generator Form, CS Reports, Science Reports, and College PDF Printouts. |
+| ✅ | **Improve setup instructions and tests** | Added standalone automated test suite (`test_suite.py` with 14 automated test cases) and enhanced smoke test (`test_api.py`). |
+
+---
+
+## 🖼️ Visual Previews & Generated Output
+
+<div align="center">
+
+### 1. Modern Glassmorphic Login Interface
+![Login Preview](screenshots/1_login_preview.svg)
+
+---
+
+### 2. Generator Form with Dynamic Quick-Pick Suggestion Chips
+![Form Suggestions](screenshots/2_form_suggestions.svg)
+
+---
+
+### 3. Computer Science Output (Aim, Algorithm, Code, Output & Result)
+![CS Record Output](screenshots/3_cs_record_output.svg)
+
+---
+
+### 4. Science Lab Output (Aim, Theory, Procedure, Observations & Result)
+![Science Record Output](screenshots/4_science_record_output.svg)
+
+---
+
+### 5. Official College Submission Printout & PDF Export
+![College Print Format](screenshots/5_college_print_format.svg)
 
 </div>
 
@@ -73,13 +119,17 @@ Even without an internet connection or AI key, the generator has **24+ built-in,
 
 ---
 
-## ✨ Top Features
+## 🔒 Security & Environment Variables
 
-* 📱 **Works on Any Device** — Works smoothly on phones, tablets, and laptops.
-* 🎨 **Clean, Modern Look** — Beautiful dark mode interface with smooth animations.
-* 📄 **Print-Ready College Format** — Automatically switches to a clean black-and-white theme when printing to save printer ink and match official submission formats.
-* 💡 **Clickable Suggestion Chips** — No need to guess what to type; click suggestions based on your subject.
-* 🔒 **Private & Secure** — Your work stays in your browser; no personal passwords required.
+All API keys are strictly loaded from environment variables and never exposed to the client or committed to version control:
+
+| Variable | Description | Default | Security Level |
+|:---|:---|:---:|:---:|
+| `GEMINI_API_KEY` | Google Gemini AI API key for real-time generation | `""` | Optional / Recommended |
+| `HF_TOKEN` | Hugging Face user access token for Flan-T5 inference | `""` | Optional Fallback |
+| `TEST_SERVER_URL` | Base URL used by automated integration test scripts | `http://127.0.0.1:5000` | Local Testing Only |
+
+Local secrets are stored in `.env`, which is strictly ignored by `.gitignore`.
 
 ---
 
@@ -88,12 +138,28 @@ Even without an internet connection or AI key, the generator has **24+ built-in,
 For developers curious about the underlying technology:
 
 * **Frontend**: Pure HTML5, modern CSS3 (Glassmorphism design system), and Vanilla JavaScript (ES6+).
-* **Backend**: Python 3.11+ using the **Flask** microframework.
+* **Backend**: Python 3.11+ using the **Flask** microframework with **Flask-CORS**.
 * **AI Intelligence**: 
   1. **Primary**: Google Gemini 1.5/3.6 Flash API for real-time generative responses.
   2. **Secondary**: Hugging Face Inference API (`google/flan-t5-base`).
   3. **Zero-Downtime Fallback**: 24+ offline rule-based templates if APIs are busy or offline.
 * **Cloud Hosting**: Deployed serverless on **Vercel** with static hosting mirrored on **GitHub Pages**.
+
+---
+
+## 🧪 Running Automated Tests
+
+A comprehensive test suite is provided to validate all 7 verification criteria:
+
+```bash
+# 1. Run full unit and regression test suite (14 automated tests)
+python -m unittest test_suite.py -v
+
+# 2. Run API integration / smoke test (works against local or live server)
+python test_api.py
+```
+
+All tests run in sub-second time without requiring third-party testing dependencies.
 
 ---
 

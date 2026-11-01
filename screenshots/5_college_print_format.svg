@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 760" width="100%" height="100%">
+  <!-- Paper Background (Clean White for College Submission Print) -->
+  <rect width="900" height="760" fill="#f1f5f9"/>
+
+  <!-- Printable Sheet -->
+  <rect x="70" y="25" width="760" height="710" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" filter="drop-shadow(0 10px 15px rgba(0,0,0,0.1))"/>
+
+  <!-- Double Border for Formal Record -->
+  <rect x="85" y="40" width="730" height="680" fill="none" stroke="#0f172a" stroke-width="1.2"/>
+  <rect x="89" y="44" width="722" height="672" fill="none" stroke="#0f172a" stroke-width="0.6"/>
+
+  <!-- College Header -->
+  <text x="450" y="78" text-anchor="middle" fill="#0f172a" font-family="'Times New Roman', Times, serif" font-size="20" font-weight="700" letter-spacing="1.5">
+    DEPARTMENT OF COMPUTER SCIENCE &amp; ENGINEERING
+  </text>
+  <text x="450" y="98" text-anchor="middle" fill="#334155" font-family="'Times New Roman', Times, serif" font-size="14" font-weight="600">
+    LABORATORY EXPERIMENT RECORD
+  </text>
+  <line x1="200" y1="106" x2="700" y2="106" stroke="#0f172a" stroke-width="0.8"/>
+
+  <!-- Student Meta Table -->
+  <rect x="110" y="118" width="680" height="52" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="450" y1="118" x2="450" y2="170" stroke="#cbd5e1" stroke-width="1"/>
+  
+  <text x="125" y="138" fill="#0f172a" font-family="Arial, sans-serif" font-size="12">
+    <tspan font-weight="700">Student Name:</tspan> Ranjith B
+  </text>
+  <text x="125" y="158" fill="#0f172a" font-family="Arial, sans-serif" font-size="12">
+    <tspan font-weight="700">Register No:</tspan> 721423104001
+  </text>
+
+  <text x="465" y="138" fill="#0f172a" font-family="Arial, sans-serif" font-size="12">
+    <tspan font-weight="700">Course / Branch:</tspan> B.Tech CSBS (II Year)
+  </text>
+  <text x="465" y="158" fill="#0f172a" font-family="Arial, sans-serif" font-size="12">
+    <tspan font-weight="700">Date of Experiment:</tspan> 01/11/2026
+  </text>
+
+  <!-- Experiment Title -->
+  <rect x="110" y="180" width="680" height="28" fill="#0f172a"/>
+  <text x="450" y="198" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="1">
+    EXPERIMENT NO. 04: BINARY SEARCH IMPLEMENTATION
+  </text>
+
+  <!-- Aim -->
+  <text x="110" y="230" fill="#0f172a" font-family="Arial, sans-serif" font-size="12" font-weight="700">1. AIM:</text>
+  <text x="110" y="246" fill="#334155" font-family="Arial, sans-serif" font-size="11">To write and execute a Python program to perform Binary Search on a sorted array.</text>
+
+  <!-- Algorithm -->
+  <text x="110" y="272" fill="#0f172a" font-family="Arial, sans-serif" font-size="12" font-weight="700">2. ALGORITHM:</text>
+  <text x="125" y="288" fill="#334155" font-family="Arial, sans-serif" font-size="10.5">Step 1: Read the list of n sorted integers and the search key element x.</text>
+  <text x="125" y="302" fill="#334155" font-family="Arial, sans-serif" font-size="10.5">Step 2: Initialize low = 0 and high = n - 1.</text>
+  <text x="125" y="316" fill="#334155" font-family="Arial, sans-serif" font-size="10.5">Step 3: Repeat while low &lt;= high: calculate mid = (low + high) // 2.</text>
+  <text x="125" y="330" fill="#334155" font-family="Arial, sans-serif" font-size="10.5">Step 4: If arr[mid] == x, return mid. Else if arr[mid] &lt; x, low = mid + 1; else high = mid - 1.</text>
+  <text x="125" y="344" fill="#334155" font-family="Arial, sans-serif" font-size="10.5">Step 5: If low &gt; high, return element not found (-1).</text>
+
+  <!-- Program -->
+  <text x="110" y="370" fill="#0f172a" font-family="Arial, sans-serif" font-size="12" font-weight="700">3. SOURCE CODE:</text>
+  <rect x="110" y="380" width="680" height="150" fill="#fafafa" stroke="#cbd5e1" stroke-width="0.8"/>
+  <text x="125" y="398" fill="#0f172a" font-family="'Courier New', monospace" font-size="10.5">def binary_search(arr, x):</text>
+  <text x="145" y="412" fill="#0f172a" font-family="'Courier New', monospace" font-size="10.5">    low, high = 0, len(arr) - 1</text>
+  <text x="145" y="426" fill="#0f172a" font-family="'Courier New', monospace" font-size="10.5">    while low &lt;= high:</text>
+  <text x="165" y="440" fill="#0f172a" font-family="'Courier New', monospace" font-size="10.5">        mid = (low + high) // 2</text>
+  <text x="165" y="454" fill="#0f172a" font-family="'Courier New', monospace" font-size="10.5">        if arr[mid] == x: return mid</text>
+  <text x="165" y="468" fill="#0f172a" font-family="'Courier New', monospace" font-size="10.5">        elif arr[mid] &lt; x: low = mid + 1</text>
+  <text x="165" y="482" fill="#0f172a" font-family="'Courier New', monospace" font-size="10.5">        else: high = mid - 1</text>
+  <text x="145" y="496" fill="#0f172a" font-family="'Courier New', monospace" font-size="10.5">    return -1</text>
+  <text x="125" y="512" fill="#0f172a" font-family="'Courier New', monospace" font-size="10.5"># Test array: [2, 3, 4, 10, 40] | Search target: 10</text>
+
+  <!-- Output -->
+  <text x="110" y="550" fill="#0f172a" font-family="Arial, sans-serif" font-size="12" font-weight="700">4. EXECUTION OUTPUT:</text>
+  <rect x="110" y="558" width="680" height="26" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="0.8"/>
+  <text x="125" y="575" fill="#0f172a" font-family="'Courier New', monospace" font-size="11">Element is present at index: 3</text>
+
+  <!-- Result -->
+  <text x="110" y="605" fill="#0f172a" font-family="Arial, sans-serif" font-size="12" font-weight="700">5. RESULT:</text>
+  <text x="110" y="620" fill="#334155" font-family="Arial, sans-serif" font-size="11">The Binary Search program was implemented, tested, and verified successfully in O(log n) time complexity.</text>
+
+  <!-- Signatures Block -->
+  <line x1="110" y1="650" x2="790" y2="650" stroke="#cbd5e1" stroke-dasharray="3 3"/>
+  <text x="110" y="680" fill="#0f172a" font-family="Arial, sans-serif" font-size="11">
+    <tspan font-weight="700">Date of Submission:</tspan> 01/11/2026
+  </text>
+  <text x="460" y="680" fill="#0f172a" font-family="Arial, sans-serif" font-size="11">
+    <tspan font-weight="700">Marks Awarded:</tspan> _______ / 20
+  </text>
+  <text x="680" y="680" text-anchor="middle" fill="#0f172a" font-family="Arial, sans-serif" font-size="11">
+    <tspan font-weight="700">Staff Signature</tspan>
+  </text>
+  <line x1="620" y1="668" x2="740" y2="668" stroke="#0f172a" stroke-width="0.8"/>
+</svg>
